@@ -3,7 +3,6 @@ class Solution(object):
         for i in range(start, end):
             if c == s[i]:
                 return True
-            # print('c: {}, s[i]: {}, s: {}, start: {}, end: {}'.format(c, s[i], s, start, end))
         return False
 
     def lengthOfLongestSubstring(self, s):
@@ -12,15 +11,22 @@ class Solution(object):
         :rtype: int
         """
         longest = 0
+        # [start, end] is used as a slide window, so we need to keep
+        # end across different sessions.
+        end = 1
         for start in range(len(s)):
             if len(s) - start <= longest:
                 break
-            curr = 1
+            curr = end - start
 
-            for end in range(start + 1, len(s)):
-                if self.contain(s[end], s, start, end):
+            while end < len(s):
+                if self.contain(s[end], s, start, end): # this can be
+                                                        # optimized by
+                                                        # using
+                                                        # hashmap
                     break
                 curr = curr + 1
+                end = end + 1
 
             if curr > longest:
                 longest = curr
@@ -41,4 +47,3 @@ if __name__ == '__main__':
     string = 'pwwkew'
     print('The length of longest substring of "{}" is {}, expect 3'.format(string, s.lengthOfLongestSubstring(string)))
 
-    
