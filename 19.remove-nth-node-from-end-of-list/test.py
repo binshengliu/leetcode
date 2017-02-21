@@ -42,5 +42,13 @@ class TestSolution(unittest.TestCase):
         t = ans
         self.assertEqual(t.val, 1)
 
+    def test_3(self):
+        s = code.Solution()
+
+        head = ListNode(1)
+
+        ans = s.removeNthFromEnd(head, 1)
+        self.assertEqual(ans, None)
+
 if __name__ == '__main__':
     unittest.main()
