@@ -1,14 +1,4 @@
-import sys
-
 class Solution(object):
-    def simple_divide(self, dividend, divisor):
-        ans = 0
-        tmp = divisor
-        while tmp <= dividend:
-            tmp += divisor
-            ans += 1
-        return (ans, dividend - (tmp - divisor))
-
     def divide(self, dividend, divisor):
         """
         :type dividend: int
@@ -16,7 +6,10 @@ class Solution(object):
         :rtype: int
         """
         if divisor == 0:
-            return sys.maxsize
+            return 2 ** 31 - 1
+
+        if dividend == -(2 ** 31) and divisor == -1:
+            return 2 ** 31 - 1
 
         sign1 = 1
         if dividend < 0:
@@ -28,27 +21,22 @@ class Solution(object):
             divisor = -divisor
             sign2 = -1
 
-        str_dividend = str(dividend)
-        str_ans = ''
-        tmp_dividend = ''
-        for i in str_dividend:
-            tmp_dividend += i
+        ans = 0
+        while dividend >= divisor:
+            tmp = divisor
+            shift = 0
+            while dividend >= (tmp << 1):
+                tmp <<= 1
+                shift += 1
 
-            # print('tmp dividend: {}, divisor: {}'.format(tmp_dividend, divisor))
+            if shift != 0:
+                dividend -= (divisor << shift)
+                ans += 1 << shift
+            else:
+                dividend -= divisor
+                ans += 1
 
-            (tmp_ans, remain) = self.simple_divide(int(tmp_dividend), divisor)
-            str_ans += str(tmp_ans)
-
-            tmp_dividend = ''
-            if remain != 0:
-                tmp_dividend = str(remain)
-
-        ans = int(str_ans)
         if sign1 != sign2:
             ans = -ans
-
-        # Special condition: handle int overflow
-        if ans > (2 ** 31 - 1) or ans < -(2 ** 31):
-            return (2 ** 31 - 1)
 
         return ans
