@@ -1,5 +1,4 @@
-'''Use a stack to find mismatches. The difference of adjacent
-mismatches must be a valid sequence'''
+'''https://leetcode.com/articles/longest-valid-parentheses/#approach-2-using-dynamic-programming-accepted'''
 
 class Solution(object):
     def longestValidParentheses(self, s):
@@ -7,29 +6,18 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        stack = []
+        dp = [0 for char in s]
+
+        cur_max = 0
         for (i, char) in enumerate(s):
-            if char == '(':
-                stack.append(i)
-            elif char == ')':
-                if stack and s[stack[-1]] == '(':
-                    del stack[-1]
-                else:
-                    stack.append(i)
-            else:               # defensive
-                raise ValueError('The input contains illegal characters.')
+            if char == ')':
+                if i - 1 >= 0 and s[i - 1] == '(':
+                    dp[i] = dp[i - 2] + 2 if i - 2 >= 0 else 2
+                elif i - 1 >= 0 and s[i - 1] == ')':
+                    if i - dp[i - 1] - 1 >= 0 and s[i - dp[i - 1] - 1] == '(':
+                        dp[i] = dp[i - 1] + dp[i - dp[i - 1] - 2] + 2 if \
+                        i - dp[i - 1] - 2 >= 0 else dp[i - 1] + 2
+                if dp[i] > cur_max:
+                    cur_max = dp[i]
 
-        if not stack:
-            return len(s)
-
-        # test the case of '(()'
-        stack.append(len(s))
-
-        longest = 0
-        prev = -1
-        for i in stack:
-            if i - prev - 1 > longest:
-                longest = i - prev - 1
-            prev = i
-
-        return longest
+        return cur_max
