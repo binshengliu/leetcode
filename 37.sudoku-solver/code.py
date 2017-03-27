@@ -1,27 +1,42 @@
 # from test import print_board
 
 class Solution(object):
-    def isValueValid(self, board, row, col, val):
+    def __init__(self):
+        self._row_vals = [set() for _ in range(0, 9)]
+        self._col_vals = [set() for _ in range(0, 9)]
+        self._block_vals = [set() for _ in range(0, 9)]
+
+    def toBlockId(self, row, col):
+        block_id = int(row / 3) * 3 + int(col / 3)
+        return block_id
+
+    def toRowCol(self, block_id):
+        row_begin = int(block_id / 3) * 3
+        col_begin = int(block_id % 3) * 3
+        return (row_begin, col_begin)
+
+    def addValue(self, row, col, val):
+        block_id = self.toBlockId(row, col)
+        self._row_vals[row].add(val)
+        self._col_vals[col].add(val)
+        self._block_vals[block_id].add(val)
+
+    def removeValue(self, row, col, val):
+        block_id = self.toBlockId(row, col)
+        self._row_vals[row].remove(val)
+        self._col_vals[col].remove(val)
+        self._block_vals[block_id].remove(val)
+
+    def isValueValid(self, row, col, val):
         '''Test if val is valid'''
-        row_vals = board[row]
-        if val in row_vals:
+        if val in self._row_vals[row]:
             return False
 
-        col_vals = [board[i][col] for i in range(0, 9)]
-        if val in col_vals:
+        if val in self._col_vals[col]:
             return False
 
-        row_begin = int(row / 3) * 3
-        row_end = ((int(row / 3) + 1) * 3)
-        col_begin = int(col / 3) * 3
-        col_end = ((int(col / 3) + 1) * 3)
-        # block_vals = []
-        # for i in range(row_begin, row_end):
-        #     for j in range(col_begin, col_end):
-        #         block_vals.append(board[i][j])
-
-        block_vals = [board[i][j] for i in range(row_begin, row_end) for j in range(col_begin, col_end)]
-        if val in block_vals:
+        block_id = self.toBlockId(row, col)
+        if val in self._block_vals[block_id]:
             return False
 
         return True
@@ -46,10 +61,11 @@ class Solution(object):
             # print('\nrow: {}, col: {}'.format(row, col))
             # print_board(board)
             for val in '123456789':
-                is_valid = self.isValueValid(board, row, col, val)
+                is_valid = self.isValueValid(row, col, val)
                 if is_valid:
                     # print('{} is valid at {}, {}'.format(val, row, col))
                     board[row][col] = val
+                    self.addValue(row, col, val)
 
                     # Process next position
                     ans = self.solveSudokuRec(board, next_row, next_col)
@@ -57,6 +73,7 @@ class Solution(object):
                         return True
                     else:
                         board[row][col] = '.'
+                        self.removeValue(row, col, val)
                 # else:
                 #     print('{} is invalid at {}, {}'.format(val, row, col))
         else:
@@ -66,11 +83,25 @@ class Solution(object):
         # print('unable to continue at row {} col {}'.format(row, col))
         return False
 
-
     def solveSudoku(self, board):
         """
         :type board: List[List[str]]
         :rtype: void Do not return anything, modify board in-place instead.
         """
+        for row in range(0, 9):
+            self._row_vals[row] = set([val for val in board[row] if val != '.'])
+
+        for col in range(0, 9):
+            self._col_vals[col] = set([board[row][col] for row in range(0, 9) if board[row][col] != '.'])
+
+        for block in range(0, 9):
+            (row_begin, col_begin) = self.toRowCol(block)
+            row_end = row_begin + 3
+            col_end = col_begin + 3
+            self._block_vals[block] = set([board[row][col] \
+                                           for row in range(row_begin, row_end) \
+                                           for col in range(col_begin, col_end) \
+                                           if board[row][col] != '.'])
+
         self.solveSudokuRec(board, 0, 0)
         # print_board(board)
