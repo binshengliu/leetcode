@@ -1,37 +1,32 @@
-from operator import itemgetter
 
 
-# 1. Find the two largest elevation
-# 2. Calculate the area between them
-# 3. Calculate the left part and right part recursively
-# 4. Add the three parts
+# Imagin the first and last bar as two walls. Search through the lower
+# wall towards the higher wall. See
+# https://discuss.leetcode.com/topic/5125/sharing-my-simple-c-code-o-n-time-o-1-space
 class Solution(object):
     def trap(self, height):
         """
         :type height: List[int]
         :rtype: int
         """
-        if len(height) <= 2:
-            return 0
 
-        sorted_with_index = sorted(enumerate(height),
-                                   key=itemgetter(1), reverse=True)
+        left = 0
+        right = len(height) - 1
+        max_left = 0
+        max_right = 0
+        water = 0
+        while left <= right:
+            if max_left < max_right:
+                if height[left] > max_left:
+                    max_left = height[left]
+                else:
+                    water += max_left - height[left]
+                left += 1
+            else:
+                if height[right] > max_right:
+                    max_right = height[right]
+                else:
+                    water += max_right - height[right]
+                right -= 1
 
-        largest = sorted_with_index[0]
-        second_largest = sorted_with_index[1]
-
-        small_index = min(largest[0], second_largest[0])
-        large_index = max(largest[0], second_largest[0])
-        largest_area = min(largest[1], second_largest[1]) \
-            * (large_index - small_index - 1)
-
-        current_area = largest_area
-        for inside_index in range(small_index + 1, large_index):
-            current_area -= height[inside_index]
-
-        left_area = self.trap(height[:small_index+1])
-        right_area = self.trap(height[large_index:])
-
-        total_area = left_area + current_area + right_area
-
-        return total_area
+        return water
