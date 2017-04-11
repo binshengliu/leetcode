@@ -2,22 +2,26 @@ import sys
 
 
 class Solution(object):
+    def _jump(self, nums, current_index):
+        """find steps needed from current_index to the last element
+        :rtype: int
+        """
+        if current_index == len(nums) - 1:
+            return 0
+
+        min_steps = sys.maxsize
+        for candidate in range(current_index+1, current_index+nums[current_index]+1):
+            steps = self._jump(nums, candidate)
+            if steps < min_steps:
+                min_steps = steps
+
+        return min_steps + 1
+
     def jump(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
 
-        # Calculate bottom-up for each element how many steps are
-        # required to reach.
-        steps = [sys.maxsize for _ in range(len(nums))]
-        steps[0] = 0
-        for reach_index in range(1, len(nums)):
-            for candidate_index in range(0, reach_index):
-                can_reach = candidate_index + nums[candidate_index] >= reach_index
-                if can_reach:
-                    new_steps = steps[candidate_index] + 1
-                    if new_steps < steps[reach_index]:
-                        steps[reach_index] = new_steps
-
-        return steps[-1]
+        steps = self._jump(nums, 0)
+        return steps
