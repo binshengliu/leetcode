@@ -2,26 +2,33 @@ import sys
 
 
 class Solution(object):
-    def _jump(self, nums, current_index):
-        """find steps needed from current_index to the last element
-        :rtype: int
-        """
-        if current_index == len(nums) - 1:
-            return 0
-
-        min_steps = sys.maxsize
-        for candidate in range(current_index+1, current_index+nums[current_index]+1):
-            steps = self._jump(nums, candidate)
-            if steps < min_steps:
-                min_steps = steps
-
-        return min_steps + 1
-
     def jump(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
+        dist = [sys.maxsize for index in range(0, len(nums))]
+        dist[0] = 0
+        unvisited = set([index for index in range(0, len(nums))])
 
-        steps = self._jump(nums, 0)
-        return steps
+        while unvisited:
+            # Find the shortest index
+            shortest_index = None
+            shortest_step = sys.maxsize
+            for index in unvisited:
+                if dist[index] < shortest_step:
+                    shortest_index = index
+                    shortest_step = dist[index]
+
+            if shortest_index == len(nums) - 1:
+                return shortest_step
+
+            unvisited.remove(shortest_index)
+
+            # do relax
+            max_reach = min(len(nums), shortest_index+nums[shortest_index]+1)
+            for index in range(shortest_index+1, max_reach):
+                if shortest_step + 1 < dist[index]:
+                    dist[index] = shortest_step + 1
+
+        raise ValueError("This should not be reached.")
