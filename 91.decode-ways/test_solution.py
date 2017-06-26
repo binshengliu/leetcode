@@ -29,3 +29,9 @@ def test_5():
     s = Solution()
     ans = s.numDecodings("30")
     assert ans == 0
+
+
+def test_6():
+    s = Solution()
+    ans = s.numDecodings("4757562545844617494555774581341211511296816786586787755257741178599337186486723247528324612117156948")
+    assert ans == 589824
