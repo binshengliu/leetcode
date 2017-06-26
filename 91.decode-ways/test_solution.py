@@ -27,7 +27,7 @@ def test_4():
 
 def test_5():
     s = Solution()
-    ans = s.numDecodings("30")
+    ans = s.numDecodings("0")
     assert ans == 0
 
 
@@ -35,3 +35,22 @@ def test_6():
     s = Solution()
     ans = s.numDecodings("4757562545844617494555774581341211511296816786586787755257741178599337186486723247528324612117156948")
     assert ans == 589824
+
+
+def test_7():
+    s = Solution()
+    ans = s.numDecodings("100")
+    assert ans == 0
+
+
+def test_8():
+    s = Solution()
+    ans = s.numDecodings("10")
+    assert ans == 1
+
+
+def test_9():
+    s = Solution()
+    # import pudb.b
+    ans = s.numDecodings("110")
+    assert ans == 1

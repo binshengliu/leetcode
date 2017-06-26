@@ -1,67 +1,30 @@
-cache = {}
-
-
 class Solution(object):
     def numDecodings(self, s):
         """
         :type s: str
         :rtype: int
         """
-        if s in cache:
-            return cache[s]
-
         if not s:
-            cache[s] = 0
             return 0
 
-        if s[0] == '0':
-            cache[s] = 0
-            return 0
+        dp = [0] * (len(s) + 1)
+        dp[0] = 1
+        dp[1] = 1 if s[0] != '0' else 0
 
-        if len(s) == 1:
-            cache[s] = 1
-            return 1
-
-        if len(s) == 2:
-            if s[0] == '1':
-                if s[1] == '0':
-                    cache[s] = 1
-                    return 1
-                else:
-                    cache[s] = 2
-                    return 2
-            elif s[0] == '2':
-                if s[1] == '0':
-                    cache[s] = 1
-                    return 1
-                elif s[1] in '123456':
-                    cache[s] = 2
-                    return 2
-                else:
-                    cache[s] = 1
-                    return 1
-            elif s[1] == '0':
-                cache[s] = 0
+        for i in range(2, len(s)+1):
+            # if current digit is "0", the previous one must be "1" or
+            # "2". Or else, this is an invalid input.
+            if s[i-1] == '0' and (s[i-2] != '1' and s[i-2] != '2'):
                 return 0
-            else:
-                cache[s] = 1
-                return 1
 
-        ans = 0
-        if s[0] == '1':
-            if s[1] == '0':
-                ans += self.numDecodings(s[2:])
+            two_digit = int(s[i-2:i])
+            if two_digit == 10 or two_digit == 20:
+                dp[i] = dp[i-2]
+            elif two_digit <= 9:
+                dp[i] = dp[i-1]
+            elif two_digit <= 26:
+                dp[i] = dp[i-1] + dp[i-2]
             else:
-                ans += self.numDecodings(s[1:]) + self.numDecodings(s[2:])
-        elif s[0] == '2':
-            if s[1] == '0':
-                ans += self.numDecodings(s[2:])
-            elif s[1] in '123456':
-                ans += self.numDecodings(s[1:]) + self.numDecodings(s[2:])
-            else:
-                ans += self.numDecodings(s[1:])
-        else:
-            ans += self.numDecodings(s[1:])
+                dp[i] = dp[i-1]
 
-        cache[s] = ans
-        return ans
+        return dp[len(s)]
