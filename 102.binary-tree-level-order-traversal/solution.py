@@ -7,22 +7,29 @@
 
 
 class Solution(object):
-    def levelOrderRecursively(self, root, level, ans):
-        if not root:
-            return
-
-        if len(ans) <= level:
-            ans.append([])
-
-        ans[level].append(root.val)
-        self.levelOrderRecursively(root.left, level + 1, ans)
-        self.levelOrderRecursively(root.right, level + 1, ans)
-
     def levelOrder(self, root):
         """
         :type root: TreeNode
         :rtype: List[List[int]]
         """
+        if not root:
+            return []
+
+        q = [root]
         ans = []
-        self.levelOrderRecursively(root, 0, ans)
+        level = 0
+
+        while q:
+            count = len(q)
+            ans.append([])
+            for i in range(count):
+                node = q[i]
+                ans[level].append(node.val)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            del q[:count]
+            level += 1
+
         return ans
