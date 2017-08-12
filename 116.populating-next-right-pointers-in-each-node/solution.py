@@ -14,14 +14,16 @@ class Solution:
         if not root:
             return
 
-        q = [root]
-        while q:
-            count = len(q)
-            for i in range(count - 1):
-                q[i].next = q[i+1]
-            for i in range(count):
-                if q[i] and q[i].left:
-                    q.append(q[i].left)
-                if q[i] and q[i].right:
-                    q.append(q[i].right)
-            del q[:count]
+        # The outer loop visit every level of the tree, and the downp
+        # pointer moves along the left branch of the tree. The inner
+        # loop visit every node in the same level, and the rightp
+        # pointer traverses every node in the same level.
+        downp = root
+        while downp.left:
+            rightp = downp
+            while rightp:
+                rightp.left.next = rightp.right
+                if rightp.next:
+                    rightp.right.next = rightp.next.left
+                rightp = rightp.next
+            downp = downp.left
