@@ -7,18 +7,18 @@ class Solution(object):
         if not triangle:
             return 0
 
-        dp = [[triangle[0][0]]]
+        dp = [triangle[0][0]]
         for row in range(1, len(triangle)):
-            new_row = []
+            new_row = [0] * len(triangle[row])
             for col in range(len(triangle[row])):
                 cur_value = triangle[row][col]
                 if col == 0:
-                    prev_min = dp[row-1][0]
+                    prev_min = dp[0]
                 elif col == len(triangle[row]) - 1:
-                    prev_min = dp[row-1][col-1]
+                    prev_min = dp[col-1]
                 else:
-                    prev_min = min(dp[row-1][col-1], dp[row-1][col])
-                new_row.append(cur_value + prev_min)
-            dp.append(new_row)
+                    prev_min = min(dp[col-1], dp[col])
+                new_row[col] = cur_value + prev_min
+            dp = new_row
 
-        return min(dp[-1])
+        return min(dp)
