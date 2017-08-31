@@ -7,30 +7,24 @@
 
 
 class Solution(object):
-    def sumNumbersHelper(self, root):
+    def sumNumbersHelper(self, root, parent, ans):
         """
         :type root: TreeNode
         :rtype: (int, int)
         """
+        current = parent * 10 + root.val
         if not root.left and not root.right:
-            return [(root.val, 0)]
+            ans[0] += current
+            # print("Current: {}, Ans: {}".format(current, ans[0]))
+            return
 
-        # print("current: {}".format(root.val))
-        ans = []
         if root.left:
-            sub_ans = self.sumNumbersHelper(root.left)
-            ans.extend([(left_sum + root.val * (10 ** (left_depth + 1)), left_depth + 1)
-                        for (left_sum, left_depth) in sub_ans])
-            # print("left: {}, left depth: {}".format(left_sum, left_depth))
-            # print("total left: {}".format(sum))
+            self.sumNumbersHelper(root.left, current, ans)
 
         if root.right:
-            sub_ans = self.sumNumbersHelper(root.right)
-            ans.extend([(right_sum + root.val * (10 ** (right_depth + 1)), right_depth + 1)
-                        for (right_sum, right_depth) in sub_ans])
-            # print("right: {}".format(right_sum))
+            self.sumNumbersHelper(root.right, current, ans)
 
-        return ans
+        return
 
     def sumNumbers(self, root):
         """
@@ -40,7 +34,6 @@ class Solution(object):
         if not root:
             return 0
 
-        ans = self.sumNumbersHelper(root)
-        # print("{}".format(ans))
-        sum_num = sum([branch[0] for branch in ans])
-        return sum_num
+        ans = [0]
+        self.sumNumbersHelper(root, 0, ans)
+        return ans[0]
