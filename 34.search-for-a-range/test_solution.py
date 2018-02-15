@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.searchRange([5, 7, 7, 8, 8, 10], 8), [3, 4])
         self.assertEqual(s.searchRange([5, 7, 7, 8, 8, 10], 7), [1, 2])
         self.assertEqual(s.searchRange([], 7), [-1, -1])

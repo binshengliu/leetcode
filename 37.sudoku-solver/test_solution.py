@@ -1,4 +1,4 @@
-import code
+import solution
 
 def print_board(board):
     for (i, line) in enumerate(board):
@@ -11,7 +11,7 @@ def print_board(board):
         print('', flush=True)
 
 def test_1():
-    s = code.Solution()
+    s = solution.Solution()
     board = [['5', '3', '.', '.', '7', '.', '.', '.', '.'],
              ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
              ['.', '9', '8', '.', '.', '.', '.', '6', '.'],

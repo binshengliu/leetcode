@@ -1,9 +1,9 @@
-import code
+import solution
 import unittest
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.convert('PAYPALISHIRING', 3), 'PAHNAPLSIIGYIR')
         self.assertEqual(s.convert('PAYPALISHIRING', 4), 'PINALSIGYAHRPI')
         self.assertEqual(s.convert('ABC', 1), 'ABC')

@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.romanToInt('I'), 1)
         self.assertEqual(s.romanToInt('XLVII'), 47)
         self.assertEqual(s.romanToInt('CXXIII'), 123)

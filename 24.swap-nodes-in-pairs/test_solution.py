@@ -1,5 +1,5 @@
 import unittest
-import code
+import solution
 
 class ListNode(object):
     def __init__(self, x):
@@ -26,22 +26,22 @@ def print_linked_list(msg, l):
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         ans = s.swapPairs(to_linked_list([1, 2, 3, 4]))
         print_linked_list('first answer: ', ans)
 
     def test_2(self):
-        s = code.Solution()
+        s = solution.Solution()
         ans = s.swapPairs(to_linked_list([1, 2, 3]))
         print_linked_list('second answer:', ans)
 
     def test_3(self):
-        s = code.Solution()
+        s = solution.Solution()
         ans = s.swapPairs(to_linked_list([1]))
         print_linked_list('third answer:', ans)
 
     def test_4(self):
-        s = code.Solution()
+        s = solution.Solution()
         ans = s.swapPairs(to_linked_list([1, 2, 3, 4, 5]))
         print_linked_list('second answer:', ans)
 

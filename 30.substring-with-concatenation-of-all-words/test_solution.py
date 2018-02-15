@@ -1,5 +1,5 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     cases = (('barfoothefoobarman', ['foo', 'bar'], [0, 9]),
@@ -8,7 +8,7 @@ class TestSolution(unittest.TestCase):
                  ('barfoothekfoobarman', ['fook', 'bar', 'the'], []))
 
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         for case in self.cases:
             self.assertEqual(s.findSubstring(case[0], case[1]), case[2])
 

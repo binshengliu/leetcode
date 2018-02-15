@@ -6,8 +6,8 @@ import heapq
 #         self.val = x
 #         self.next = None
 
-# This code works. But since LinkNode shouldn't be modified and heapq does not
-# support custom sorting very well, the code breaks when there are same
+# This solution works. But since LinkNode shouldn't be modified and heapq does not
+# support custom sorting very well, the solution breaks when there are same
 # priorities in the list and heapq tries to compare further elements. Refer to
 # http://stackoverflow.com/questions/3954530/how-to-make-heapq-evaluate-the-heap-off-of-a-specific-attribute/3954575#3954575
 

@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.isPalindrome(1), True)
         self.assertEqual(s.isPalindrome(0), True)
         self.assertEqual(s.isPalindrome(121), True)

@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         l = [1, 2, 3]
         s.nextPermutation(l)
         self.assertEqual(l, [1, 3, 2])

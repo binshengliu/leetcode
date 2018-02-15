@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.longestCommonPrefix(['abcd', 'ab']), 'ab')
         self.assertEqual(s.longestCommonPrefix(['ab', 'abcd']), 'ab')
         self.assertEqual(s.longestCommonPrefix(['ab', 'abcd', 'abcde']), 'ab')

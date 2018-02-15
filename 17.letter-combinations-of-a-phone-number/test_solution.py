@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.letterCombinations('22'), ["aa","ab","ac","ba","bb","bc","ca","cb","cc"])
         self.assertEqual(s.letterCombinations('0'), [' '])
         self.assertEqual(s.letterCombinations('1'), ['*'])

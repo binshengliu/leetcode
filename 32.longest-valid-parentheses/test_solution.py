@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.longestValidParentheses('(()'), 2)
         self.assertEqual(s.longestValidParentheses(')()())'), 4)
         self.assertEqual(s.longestValidParentheses('()()()()'), 8)

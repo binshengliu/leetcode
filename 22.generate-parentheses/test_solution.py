@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         # self.assertEqual(1, 1)
         ans = s.generateParenthesis(4)
         print(ans)

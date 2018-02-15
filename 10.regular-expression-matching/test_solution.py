@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.isMatch("aa","a"), False)
         self.assertEqual(s.isMatch("aa","aa"), True)
         self.assertEqual(s.isMatch("aaa","aa"), False)

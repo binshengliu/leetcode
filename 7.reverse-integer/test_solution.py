@@ -1,14 +1,14 @@
-import code
+import solution
 import unittest
 
 class TestSolution(unittest.TestCase):
     def test_compare(self):
-        self.assertEqual(code.compare('1', '1'), 0)
-        self.assertEqual(code.compare('2', '1'), 1)
-        self.assertEqual(code.compare('2', '3'), -1)
+        self.assertEqual(solution.compare('1', '1'), 0)
+        self.assertEqual(solution.compare('2', '1'), 1)
+        self.assertEqual(solution.compare('2', '3'), -1)
 
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.reverse(123), 321)
         self.assertEqual(s.reverse(-123), -321)
         self.assertEqual(s.reverse(0), 0)

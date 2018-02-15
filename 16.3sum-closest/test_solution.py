@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.threeSumClosest([-1, 2, 1, -4], 1), 2)
         self.assertEqual(s.threeSumClosest([-9, -1, 0, 2, 9], 0), 0)
         self.assertEqual(s.threeSumClosest([-9, -1, 0, 2, 9], 1), 1)

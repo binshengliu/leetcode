@@ -1,5 +1,5 @@
 import unittest
-import code
+import solution
 
 class ListNode(object):
     def __init__(self, x):
@@ -8,7 +8,7 @@ class ListNode(object):
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
 
         head = ListNode(1)
         c = head
@@ -30,7 +30,7 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(t.val, 5)
 
     def test_2(self):
-        s = code.Solution()
+        s = solution.Solution()
 
         head = ListNode(1)
         c = head
@@ -43,7 +43,7 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(t.val, 1)
 
     def test_3(self):
-        s = code.Solution()
+        s = solution.Solution()
 
         head = ListNode(1)
 

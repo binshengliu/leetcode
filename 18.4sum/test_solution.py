@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         # print(s.fourSum([1, 0, -1, 0, -2, 2], 0))
         # print(s.threeSum([1, 0, -1, 0, 2], 2))
         # self.assertEqual(s.fourSum([1, 0, -1, 0, -2, 2], 0), 0)

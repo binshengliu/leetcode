@@ -1,9 +1,9 @@
 import unittest
-import code
+import solution
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         self.assertEqual(s.divide(1, 1), 1)
         self.assertEqual(s.divide(20, 2), 10)
         self.assertEqual(s.divide(-20, 3), -6)

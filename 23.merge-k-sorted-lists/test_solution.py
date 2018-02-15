@@ -1,5 +1,5 @@
 import unittest
-import code
+import solution
 
 class ListNode(object):
     def __init__(self, x):
@@ -27,12 +27,12 @@ def print_linked_list(l):
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
-        s = code.Solution()
+        s = solution.Solution()
         ans = s.mergeKLists(convert([[1,5,7], [2,4,6]]))
         print_linked_list(ans)
 
     def test_2(self):
-        s = code.Solution()
+        s = solution.Solution()
         ans = s.mergeKLists(convert([[-1,1],[-3,1,4],[-2,-1,0,2]]))
         print_linked_list(ans)
 
