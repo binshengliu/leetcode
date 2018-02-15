@@ -18,4 +18,4 @@ def test_3():
     s = Solution()
     ans = s.fullJustify(["Listen", "to", "many, ", "speak", "to", "a",
                          "few."], 6)
-    assert ans == ["Listen", "to    ", "many,  ", "speak ", "to   a", "few.  "]
+    assert ans == ["Listen", "to    ", "many, ", "speak ", "to   a", "few.  "]

@@ -62,4 +62,4 @@ def test_6():
         [0, 0, 0]
     ]
     ans = s.uniquePathsWithObstacles(grid)
-    assert ans == 2
+    assert ans == 1

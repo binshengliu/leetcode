@@ -1,4 +1,4 @@
-import heapq
+from operator import itemgetter, attrgetter
 
 # Definition for singly-linked list.
 # class ListNode(object):
@@ -6,10 +6,11 @@ import heapq
 #         self.val = x
 #         self.next = None
 
-# This solution works. But since LinkNode shouldn't be modified and heapq does not
-# support custom sorting very well, the solution breaks when there are same
-# priorities in the list and heapq tries to compare further elements. Refer to
-# http://stackoverflow.com/questions/3954530/how-to-make-heapq-evaluate-the-heap-off-of-a-specific-attribute/3954575#3954575
+# def print_linked_list(l):
+#     while l != None:
+#         print(l.val, end=' ', flush=True)
+#         l = l.next
+#     print('')
 
 class Solution(object):
     def mergeKLists(self, lists):
@@ -17,27 +18,37 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
-        heap = [(i.val, i) for i in lists if i != None]
-
-        heapq.heapify(heap)
+        tmp = [val for val in lists if val != None]
 
         ans = None
         c = None
-        while heap:
-            smallest = heapq.heappop(heap)
+        tmp.sort(key=attrgetter('val'))
+        while tmp:
             if c == None:
-                c = smallest[1]
+                c = tmp[0]
                 ans = c
             else:
-                c.next = smallest[1]
+                c.next = tmp[0]
                 c = c.next
-
-            next_node = smallest[1].next
+            tmp[0] = tmp[0].next
             c.next = None
 
-            if next_node == None:
+            if tmp[0] == None:
+                del tmp[0]
                 continue
 
-            heapq.heappush(heap, (next_node.val, next_node))
+            # for l in tmp:
+            #     print_linked_list(l)
 
+            # print('')
+
+            i = 0
+            while i < len(tmp) - 1 and tmp[i].val > tmp[i+1].val:
+                tmp[i], tmp[i+1] = tmp[i+1], tmp[i]
+                i += 1
+
+            # for l in tmp:
+            #     print_linked_list(l)
+
+            # print('-----------------------')
         return ans

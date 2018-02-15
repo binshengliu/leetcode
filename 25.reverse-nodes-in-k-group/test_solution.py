@@ -1,7 +1,32 @@
 import unittest
 import solution
 import sys
-from linked_list import *
+
+
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+def list_to_linked_list(val):
+    if not val:
+        return None
+
+    ret = ListNode(0)
+    current = ret
+    for c in val:
+        current.next = ListNode(c)
+        current = current.next
+    return ret.next
+
+def linked_list_to_list(linked):
+    l = []
+    c = linked
+    while c != None:
+        l.append(c.val)
+        c = c.next
+    return l
+
 
 class TestSolution(unittest.TestCase):
 
