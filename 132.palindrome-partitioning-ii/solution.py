@@ -4,39 +4,33 @@ class Solution:
         :type s: str
         :rtype: int
         """
-        length = len(s)
+        n = len(s)
+
+        # Whether string i through j (inclusive) is a pal.
+        pal = [[False for col in range(n)] for row in range(n)]
 
         # How many cuts at *index* i (inclusive).
-        cuts = [i for i in range(length)]
+        cuts = [i for i in range(n)]
 
-        # Or it may mean how many cuts at *length* i. Then the edge
-        # case can be avoided. But I think keeping the if middle -
-        # span == 0 makes the code more clear.
-        #
-        # cuts = [i-1 for i in range(length+1)]
+        for col in range(0, n):
+            for row in range(col+1):
+                if row == col:
+                    # A single character is certainly a pal.
+                    pal[row][col] = True
+                elif row + 1 == col and s[row] == s[col]:
+                    # Two consecutive chars are a pal if they are the same.
+                    pal[row][col] = True
+                elif s[row] == s[col] and pal[row+1][col-1]:
+                    # s[a through b] is a pal if s[a] == s[b] and
+                    # s[a+1 through b-1] is a pal.
+                    pal[row][col] = True
 
-        for index in range(length):
-            # Odd pal
-            middle = index
-            for span in range(0, min(middle, length - middle - 1) + 1):
-                if s[middle-span] != s[middle+span]:
-                    break
+                # When a pal is found, the whole min cuts is itself
+                # plus the prefix string's min cuts.
+                if pal[row][col]:
+                    if row == 0:
+                        cuts[col] = 0
+                    else:
+                        cuts[col] = min(cuts[col], cuts[row-1]+1)
 
-                if middle - span == 0:
-                    cuts[middle+span] = 0
-                else:
-                    cuts[middle+span] = min(cuts[middle-span-1]+1, cuts[middle+span])
-
-            # Even pal
-            left = index
-            right = index+1
-            for span in range(0, min(left, length - right - 1) + 1):
-                if s[left-span] != s[right+span]:
-                    break
-
-                if left - span == 0:
-                    cuts[right+span] = 0
-                else:
-                    cuts[right+span] = min(cuts[left-span-1]+1, cuts[right+span])
-
-        return cuts[length - 1]
+        return cuts[n-1]
