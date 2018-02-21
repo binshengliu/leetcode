@@ -1,3 +1,15 @@
+# Let S(k) denote whether the length k prefix can be segmented. The
+# problem can be split into two subproblems recursively. We choose a
+# position k such that S[:k] and S[k:] can both be broken. There may
+# be many ks for a string. In this problem, we only need to find one.
+# To simplify the problem, we find k where S[k:] is the last shortest
+# valid word segment.
+#
+# Recursive definition of the problem:
+#
+# S(0) = True
+# S(n) = S(k) and string[k:] in dict for k in range(0, n)
+
 class Solution:
     def wordBreak(self, s, wordDict):
         """
@@ -6,31 +18,15 @@ class Solution:
         :rtype: bool
         """
         n = len(s)
-        table = [[False for col in range(n)] for row in range(n)]
+        table = [False for i in range(n + 1)]
+        table[0] = True
 
         wordDict = set(wordDict)
 
-        for i in range(0, n):
-            for j in range(i, n):
-                row = j - i
-                col = j
-                exist = False
+        for i in range(1, n + 1):
+            for j in range(0, i):
+                if table[j] and s[j:i] in wordDict:
+                    table[i] = True
+                    break
 
-                if s[row:col+1] in wordDict:
-                    table[row][col] = True
-                    continue
-
-                for split in range(row, col):
-                    table[row][col] = table[row][split] and table[split+1][col]
-                    if table[row][col]:
-                        break
-
-        return table[0][n-1]
-
-
-def test_1():
-    wordDict = ['leet', 'code']
-    word = 'leetcode'
-    s = Solution()
-    result = s.wordBreak(word, wordDict)
-    assert(result)
+        return table[n]
